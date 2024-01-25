@@ -14,9 +14,3 @@ colorCodes.forEach(code => {
     e.target.nextElementSibling.value = '#' + value
   })
 })
-
-document.addEventListener('DOMContentLoaded', () => {
-  colorCodes.forEach(code => {
-    code.value = 'ffffff'
-  })
-})
