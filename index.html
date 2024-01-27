@@ -28,10 +28,9 @@
     />
     <meta property="twitter:image" content="https://git-aesthetics.rodrigoacs.com/banner.png" />
 
-    <!-- Meta Tags Generated with https://metatags.io -->
-    <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
   </head>
+
   <body>
     <h1>git ✨aesthetics✨</h1>
 
@@ -41,19 +40,22 @@
         <input type="checkbox" id="mode" />
         <span class="slider round"></span>
       </label>
+
       <span class="text">repository info</span>
     </div>
 
     <form method="get" id="form">
-      <div>
+      <div class="color-picker-wrapper">
         <div>
           <label for="title_color">title color:</label>
+
           <div class="color_picker_wrapper">
             #
             <input type="text" class="color_code" maxlength="6" />
             <input type="color" value="#ffffff" id="title_color" name="title_color" />
           </div>
         </div>
+
         <div>
           <label for="icon_color">icon color:</label>
           <div class="color_picker_wrapper">
@@ -63,7 +65,8 @@
           </div>
         </div>
       </div>
-      <div>
+
+      <div class="color-picker-wrapper">
         <div>
           <label for="text_color">text color:</label>
           <div class="color_picker_wrapper">
@@ -72,6 +75,7 @@
             <input type="color" value="#999999" id="text_color" name="text_color" />
           </div>
         </div>
+
         <div>
           <label for="bg_color">background color:</label>
           <div class="color_picker_wrapper">
@@ -81,27 +85,37 @@
           </div>
         </div>
       </div>
-      <div>
-        <label for="show_icons">show icons:</label>
-        <input type="checkbox" id="show_icons" name="show_icons" class="checkbox" />
-        <label for="hide_border">hide border:</label>
-        <input type="checkbox" id="hide_border" name="hide_border" class="checkbox" />
-        <label for="hide_border">transparent bg:</label>
-        <input type="checkbox" id="" name="transparent_bg" class="checkbox" />
+
+      <div class="checkboxs-wrapper">
+        <div>
+          <label for="show_icons">show icons:</label>
+          <input type="checkbox" id="show_icons" name="show_icons" class="checkbox" />
+        </div>
+
+        <div>
+          <label for="hide_border">hide border:</label>
+          <input type="checkbox" id="hide_border" name="hide_border" class="checkbox" />
+        </div>
+
+        <div>
+          <label for="hide_border">transparent bg:</label>
+          <input type="checkbox" id="" name="transparent_bg" class="checkbox" />
+        </div>
       </div>
 
-      <div>
+      <div class="inputs-container">
         <div>
           <label for="username">username:</label>
           <input type="text" id="username" name="username" required />
         </div>
+
         <div>
-          <label for="repository">repository</label>
+          <label for="repository">repository:</label>
           <input type="text" id="repository" name="repository" disabled />
         </div>
       </div>
 
-      <div>
+      <div class="select-wrapper">
         <label for="locale">locale:</label>
         <select id="locale" name="locale">
           <option value="en">English</option>
@@ -134,7 +148,8 @@
           <option value="zh-tw">Chinese (Taiwan)</option>
         </select>
       </div>
-      <div>
+
+      <div class="buttons-wrapper">
         <button type="submit">generate</button>
         <button id="copy-url">copy url</button>
       </div>
@@ -150,6 +165,7 @@
           <div class="line-4"></div>
         </div>
       </div>
+
       <img
         src="https://github-readme-stats.vercel.app/api/pin?title_color=ffffff&icon_color=79ff97&text_color=d4d4d4&bg_color=212121&hide_border=true&username=rodrigoacs&repository=git-aesthetics&locale=en&show_icons=false&repo=git-aesthetics&description_lines_count=1"
         alt=""
