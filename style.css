@@ -55,6 +55,10 @@ footer {
   text-align: center;
 }
 
+footer div {
+  gap: 5px;
+}
+
 footer a {
   text-decoration: underline;
 }
@@ -388,7 +392,7 @@ div .loader .line-4 {
     flex-direction: row;
     gap: 2px;
   }
-  
+
   h1 {
     font-size: 1.5em;
   }
