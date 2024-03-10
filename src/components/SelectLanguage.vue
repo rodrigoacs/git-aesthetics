@@ -1,16 +1,18 @@
 <template>
   <q-select
-    filled
+    borderless
     v-model="model"
     :options="options"
-    label="locale"
+    label="language"
+    color="white"
+    dark
   />
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
-const model = ref('')
+const model = defineModel()
 
 const options = ref([
   { label: 'English', value: 'en' },
@@ -42,4 +44,15 @@ const options = ref([
   { label: 'Vietnamese', value: 'vi' },
   { label: 'Chinese (Taiwan)', value: 'zh-tw' }
 ])
+
+watch(model, (value) => {
+  model.value = value
+})
+
 </script>
+
+<style scoped>
+* {
+  width: 300px;
+}
+</style>
