@@ -2,8 +2,6 @@
   <q-btn
     color="white"
     text-color="black"
-    :label="label"
-    v-model="value"
   />
 </template>
 

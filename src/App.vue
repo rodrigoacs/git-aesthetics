@@ -126,7 +126,7 @@
 </template>
 
 <script setup>
-import { reactive, watch, ref } from 'vue'
+import { ref } from 'vue'
 import ColorPicker from './components/ColorPicker.vue'
 import CheckBox from './components/Checkbox.vue'
 import TextInput from './components/TextInput.vue'
@@ -138,29 +138,23 @@ const titleColor = ref('')
 const iconColor = ref('')
 const textColor = ref('')
 const backgroundColor = ref('')
-const showIcons = ref('')
-const hideBorder = ref('')
-const hideBackground = ref('')
+const showIcons = ref(false)
+const hideBorder = ref(false)
+const hideBackground = ref(false)
 const username = ref('')
 const repository = ref('')
 const selectLanguageValue = ref('')
-const modeToggleValue = ref('')
+const modeToggleValue = ref(false)
 const previewDialog = ref(false)
 const copyDialog = ref(false)
-
-const lastGeneratedUrl = ref('https://github-readme-stats.vercel.app/api/pin?title_color=ffffff&icon_color=79ff97&text_color=d4d4d4&bg_color=212121&show_icons=true&hide_border=false&hide_bg=false&username=rodrigoacs&repo=git-aesthetics&locale=en') // Store the last generated URL
+const lastGeneratedUrl = ref('')
 
 function validateFields() {
-  if (
-    !titleColor.value ||
-    !iconColor.value ||
-    !textColor.value ||
-    !backgroundColor.value ||
-    !username.value ||
-    !repository.value) {
-    return false
-  }
-  return true
+  const isRepoMode = modeToggleValue.value
+  const requiredFields = [selectLanguageValue, titleColor, iconColor, textColor, backgroundColor, username]
+  if (isRepoMode) requiredFields.push(repository)
+
+  return requiredFields.every(field => field.value)
 }
 
 function generate() {
