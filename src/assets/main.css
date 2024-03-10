@@ -1,7 +1,13 @@
+@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap);
+
 :root {
   --primary: #212121;
   --secondary: #323232;
   --highlight: #ff1e1e;
   --light: #eeeeee;
   --transition-speed: 0.4s;
+}
+
+html {
+  background-color: var(--primary);
 }

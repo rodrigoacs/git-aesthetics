@@ -1,8 +1,52 @@
 <template>
 
   <body>
+    <q-dialog
+      v-model="previewDialog"
+      dark
+    >
+      <q-card dark>
+        <q-card-section class="row items-center q-pb-none">
+          <q-btn
+            icon="close"
+            flat
+            round
+            dense
+            v-close-popup
+            dark
+          />
+        </q-card-section>
+
+        <q-card-section>
+          <div class="text-h6">Please fill all the fields.</div>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+
+    <q-dialog
+      v-model="copyDialog"
+      dark
+    >
+      <q-card dark>
+        <q-card-section class="row items-center q-pb-none">
+          <q-btn
+            icon="close"
+            flat
+            round
+            dense
+            v-close-popup
+            dark
+          />
+        </q-card-section>
+
+        <q-card-section>
+          <div class="text-h6">copied!</div>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+
     <h1>
-      ✨git aesthetics✨
+      ✨ git aesthetics ✨
     </h1>
 
     <ModeToggle v-model="modeToggleValue" />
@@ -71,20 +115,14 @@
     </div>
 
     <div class="wrapper">
-      <q-card
-        class="q-ma-md"
+      <img
+        :src="lastGeneratedUrl"
+        :alt="lastGeneratedUrl"
         style="width: 100%"
-      >
-        <q-card-section>
-          <q-img
-            :src="lastGeneratedUrl"
-            :alt="lastGeneratedUrl"
-            style="width: 100%"
-          />
-        </q-card-section>
-      </q-card>
+      />
     </div>
   </body>
+
 </template>
 
 <script setup>
@@ -96,37 +134,57 @@ import SelectLanguage from './components/SelectLanguage.vue'
 import ModeToggle from './components/ModeToggle.vue'
 import ButtonComponent from './components/ButtonComponent.vue'
 
-const titleColor = ref('ffffff')
-const iconColor = ref('79ff97')
-const textColor = ref('d4d4d4')
-const backgroundColor = ref('212121')
-const showIcons = ref(true)
-const hideBorder = ref(false)
-const hideBackground = ref(false)
-const username = ref('rodrigoacs')
-const repository = ref('git-aesthetics')
+const titleColor = ref('')
+const iconColor = ref('')
+const textColor = ref('')
+const backgroundColor = ref('')
+const showIcons = ref('')
+const hideBorder = ref('')
+const hideBackground = ref('')
+const username = ref('')
+const repository = ref('')
 const selectLanguageValue = ref('')
-const modeToggleValue = ref(false)
+const modeToggleValue = ref('')
+const previewDialog = ref(false)
+const copyDialog = ref(false)
 
 const lastGeneratedUrl = ref('https://github-readme-stats.vercel.app/api/pin?title_color=ffffff&icon_color=79ff97&text_color=d4d4d4&bg_color=212121&show_icons=true&hide_border=false&hide_bg=false&username=rodrigoacs&repo=git-aesthetics&locale=en') // Store the last generated URL
 
+function validateFields() {
+  if (
+    !titleColor.value ||
+    !iconColor.value ||
+    !textColor.value ||
+    !backgroundColor.value ||
+    !username.value ||
+    !repository.value) {
+    return false
+  }
+  return true
+}
+
 function generate() {
+  if (!validateFields()) {
+    console.error('Please fill all the fields.')
+    previewDialog.value = true
+    return
+  }
+
   const data = {
     title_color: titleColor.value,
     icon_color: iconColor.value,
     text_color: textColor.value,
-    bg_color: backgroundColor.value,
+    bg_color: hideBackground.value ? '00000000' : backgroundColor.value,
     show_icons: showIcons.value,
     hide_border: hideBorder.value,
-    hide_bg: hideBackground.value,
     username: username.value,
     repo: repository.value,
     locale: selectLanguageValue.value.value || 'en',
   }
-  console.log(data)
+
   const isRepoMode = modeToggleValue.value
-  lastGeneratedUrl.value = buildURL(data, isRepoMode) // Update the stored URL
-  console.log(lastGeneratedUrl.value) // Log the URL for debugging
+
+  lastGeneratedUrl.value = buildURL(data, isRepoMode)
 }
 
 function buildURL(data, isRepoMode) {
@@ -140,7 +198,7 @@ async function copyUrl() {
   if (lastGeneratedUrl.value) {
     try {
       await navigator.clipboard.writeText(lastGeneratedUrl.value)
-      console.log('URL copied to clipboard:', lastGeneratedUrl.value)
+      copyDialog.value = true
     } catch (err) {
       console.error('Failed to copy URL:', err)
     }
@@ -151,15 +209,13 @@ async function copyUrl() {
 </script>
 
 <style scoped>
-@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap);
-
 * {
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  color: white;
+  color: var(--light);
 }
 
 h1 {
@@ -173,7 +229,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #2c2c2c;
+  background-color: var(--primary);
 }
 
 .inputs-wrapper {
@@ -192,9 +248,19 @@ body {
   gap: 1rem;
 }
 
+.q-card {
+  width: 300px;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 @media (max-width: 600px) {
   .wrapper {
-    flex-direction: column;
+    gap: 0.5rem;
   }
 
   .inputs-wrapper {
@@ -202,7 +268,7 @@ body {
   }
 
   body {
-    padding: 10px;
+    padding: 0px 16px;
   }
 }
 </style>
