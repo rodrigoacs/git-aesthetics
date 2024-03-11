@@ -2,22 +2,17 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <title>git aesthetics</title>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-    <!-- Primary Meta Tags -->
     <title>git aesthetics</title>
     <meta name="title" content="git aesthetics" />
     <meta name="description" content="generate your github stats card with custom colors" />
-
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://git-aesthetics.rodrigoacs.com/" />
     <meta property="og:title" content="git aesthetics" />
     <meta property="og:description" content="generate your github stats card with custom colors" />
     <meta property="og:image" content="https://git-aesthetics.rodrigoacs.com/banner.png" />
-
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://git-aesthetics.rodrigoacs.com/" />
@@ -27,168 +22,9 @@
       content="generate your github stats card with custom colors"
     />
     <meta property="twitter:image" content="https://git-aesthetics.rodrigoacs.com/banner.png" />
-
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
   </head>
-
   <body>
-    <h1>git ✨aesthetics✨</h1>
-
-    <div class="switcher">
-      <span class="text">github stats</span>
-      <label class="switch">
-        <input type="checkbox" id="mode" />
-        <span class="slider round"></span>
-      </label>
-
-      <span class="text">repository info</span>
-    </div>
-
-    <form method="get" id="form">
-      <div class="color-picker-wrapper">
-        <div>
-          <label for="title_color">title color:</label>
-
-          <div class="color_picker_wrapper">
-            #
-            <input type="text" class="color_code" maxlength="6" />
-            <input type="color" value="#ffffff" id="title_color" name="title_color" />
-          </div>
-        </div>
-
-        <div>
-          <label for="icon_color">icon color:</label>
-          <div class="color_picker_wrapper">
-            #
-            <input type="text" class="color_code" maxlength="6" />
-            <input type="color" value="#ffffff" id="icon_color" name="icon_color" />
-          </div>
-        </div>
-      </div>
-
-      <div class="color-picker-wrapper">
-        <div>
-          <label for="text_color">text color:</label>
-          <div class="color_picker_wrapper">
-            #
-            <input type="text" class="color_code" maxlength="6" />
-            <input type="color" value="#999999" id="text_color" name="text_color" />
-          </div>
-        </div>
-
-        <div>
-          <label for="bg_color">background color:</label>
-          <div class="color_picker_wrapper">
-            #
-            <input type="text" class="color_code" maxlength="6" />
-            <input type="color" value="#121212" id="bg_color" name="bg_color" />
-          </div>
-        </div>
-      </div>
-
-      <div class="checkboxs-wrapper">
-        <div>
-          <label for="show_icons">show icons:</label>
-          <input type="checkbox" id="show_icons" name="show_icons" class="checkbox" />
-        </div>
-
-        <div>
-          <label for="hide_border">hide border:</label>
-          <input type="checkbox" id="hide_border" name="hide_border" class="checkbox" />
-        </div>
-
-        <div>
-          <label for="hide_border">transparent bg:</label>
-          <input type="checkbox" id="" name="transparent_bg" class="checkbox" />
-        </div>
-      </div>
-
-      <div class="inputs-container">
-        <div>
-          <label for="username">username:</label>
-          <input type="text" id="username" name="username" required />
-        </div>
-
-        <div>
-          <label for="repository">repository:</label>
-          <input type="text" id="repository" name="repository" disabled />
-        </div>
-      </div>
-
-      <div class="select-wrapper">
-        <label for="locale">locale:</label>
-        <select id="locale" name="locale">
-          <option value="en">English</option>
-          <option value="pt-br">Portuguese (Brazil)</option>
-          <option value="es">Spanish</option>
-          <option value="ar">Arabic</option>
-          <option value="de">German</option>
-          <option value="bn">Bengali</option>
-          <option value="cs">Czech</option>
-          <option value="el">Greek</option>
-          <option value="fr">French</option>
-          <option value="hu">Hungarian</option>
-          <option value="id">Indonesian</option>
-          <option value="it">Italian</option>
-          <option value="ja">Japanese</option>
-          <option value="kr">Korean</option>
-          <option value="ml">Malayalam</option>
-          <option value="my">Burmese</option>
-          <option value="nl">Dutch</option>
-          <option value="np">Nepali</option>
-          <option value="pl">Polish</option>
-          <option value="pt-pt">Portuguese (Portugal)</option>
-          <option value="ru">Russian</option>
-          <option value="se">Swedish</option>
-          <option value="sk">Slovak</option>
-          <option value="tr">Turkish</option>
-          <option value="uk-ua">Ukrainian</option>
-          <option value="uz">Uzbek</option>
-          <option value="vi">Vietnamese</option>
-          <option value="zh-tw">Chinese (Taiwan)</option>
-        </select>
-      </div>
-
-      <div class="buttons-wrapper">
-        <button type="submit">generate</button>
-        <button id="copy-url">copy url</button>
-      </div>
-    </form>
-
-    <div id="preview">
-      <div class="loader">
-        <div class="wrapper">
-          <div class="circle"></div>
-          <div class="line-1"></div>
-          <div class="line-2"></div>
-          <div class="line-3"></div>
-          <div class="line-4"></div>
-        </div>
-      </div>
-
-      <img
-        src="https://github-readme-stats.vercel.app/api/pin?title_color=ffffff&icon_color=79ff97&text_color=d4d4d4&bg_color=212121&hide_border=true&username=rodrigoacs&repository=git-aesthetics&locale=en&show_icons=false&repo=git-aesthetics&description_lines_count=1"
-        alt=""
-        id="preview-img"
-      />
-    </div>
-
-    <footer>
-      <div>
-        build with ❤️ by <a href="https://rodrigoacs.com/" target="_blank">rodrigoacs</a> using
-        <a href="https://github-readme-stats.vercel.app/" target="_blank">github-readme-stats</a>
-      </div>
-      <iframe
-        src="https://ghbtns.com/github-btn.html?user=rodrigoacs&repo=git-aesthetics&type=star&count=true"
-        frameborder="0"
-        scrolling="0"
-        width="90"
-        height="20"
-        title="GitHub"
-      ></iframe>
-    </footer>
-
-    <script src="script.js"></script>
-    <script src="colorPicker.js"></script>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
   </body>
 </html>
