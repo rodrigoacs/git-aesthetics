@@ -1,6 +1,5 @@
 <template>
   <q-select
-    borderless
     v-model="model"
     :options="options"
     label="language"
@@ -48,11 +47,10 @@ const options = ref([
 watch(model, (value) => {
   model.value = value
 })
-
 </script>
 
 <style scoped>
-* {
-  width: 300px;
+.q-select {
+  width: 100%;
 }
 </style>

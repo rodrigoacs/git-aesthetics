@@ -1,6 +1,5 @@
 <template>
   <q-input
-    filled
     v-model="color"
     :label="label"
     color="white"
@@ -29,23 +28,20 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 
-const color = ref('#')
+const color = ref('')
 
 const colorInput = ref(null)
 
 const model = defineModel()
 
-watch(color, (value) => {
-  model.value = value.split('#')[1]
-  colorInput.value.style.color = value
-})
-
 const { label } = defineProps({
   label: String
 })
 
-
-
+watch(color, (value) => {
+  model.value = value.split('#')[1]
+  colorInput.value.style.color = value
+})
 </script>
 
 <style scoped>

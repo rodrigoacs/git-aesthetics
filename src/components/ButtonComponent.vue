@@ -1,7 +1,8 @@
 <template>
   <q-btn
+    flat
     color="white"
-    text-color="black"
+    text-color="white"
   />
 </template>
 

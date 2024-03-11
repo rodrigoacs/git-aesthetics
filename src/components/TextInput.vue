@@ -1,6 +1,5 @@
 <template>
   <q-input
-    filled
     v-model="text"
     :label="label"
     color="white"
@@ -17,7 +16,6 @@ const model = defineModel()
 watch(text, (value) => {
   model.value = value
 })
-
 </script>
 
 <style scoped>

@@ -31,7 +31,6 @@ watch(value, (value) => {
 defineProps({
   value: Boolean,
 })
-
 </script>
 
 <style scoped>

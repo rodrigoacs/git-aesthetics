@@ -4,6 +4,8 @@
     v-model="val"
     :label="label"
     color="white"
+    unchecked-icon="close"
+    checked-icon="done"
     dark
     dense
   />
@@ -21,7 +23,6 @@ const { label } = defineProps({
 watch(val, (value) => {
   model.value = value
 })
-
 </script>
 
 <style scoped>

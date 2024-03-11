@@ -1,57 +1,11 @@
 <template>
 
   <body>
-    <q-dialog
-      v-model="previewDialog"
-      dark
-    >
-      <q-card dark>
-        <q-card-section class="row items-center q-pb-none">
-          <q-btn
-            icon="close"
-            flat
-            round
-            dense
-            v-close-popup
-            dark
-          />
-        </q-card-section>
-
-        <q-card-section>
-          <div class="text-h6">Please fill all the fields.</div>
-        </q-card-section>
-      </q-card>
-    </q-dialog>
-
-    <q-dialog
-      v-model="copyDialog"
-      dark
-    >
-      <q-card dark>
-        <q-card-section class="row items-center q-pb-none">
-          <q-btn
-            icon="close"
-            flat
-            round
-            dense
-            v-close-popup
-            dark
-          />
-        </q-card-section>
-
-        <q-card-section>
-          <div class="text-h6">copied!</div>
-        </q-card-section>
-      </q-card>
-    </q-dialog>
-
     <h1>
       ✨ git aesthetics ✨
     </h1>
 
     <ModeToggle v-model="modeToggleValue" />
-
-    <SelectLanguage v-model="selectLanguageValue" />
 
     <div class="inputs-wrapper">
       <div class="wrapper">
@@ -71,9 +25,26 @@
           v-model="textColor"
         />
         <ColorPicker
+          :disable="transparentBg"
           label="background color"
           v-model="backgroundColor"
         />
+      </div>
+
+      <div class="wrapper">
+        <TextInput
+          label="username"
+          v-model="username"
+        />
+        <TextInput
+          :disable="repositoryDisabled"
+          label="repository"
+          v-model="repository"
+        />
+      </div>
+
+      <div class="wrapper">
+        <SelectLanguage v-model="selectLanguageValue" />
       </div>
 
       <div class="wrapper">
@@ -90,25 +61,15 @@
           v-model="hideBackground"
         />
       </div>
-
-      <div class="wrapper">
-        <TextInput
-          label="username"
-          v-model="username"
-        />
-        <TextInput
-          label="repository"
-          v-model="repository"
-        />
-      </div>
     </div>
 
     <div class="wrapper">
       <ButtonComponent
         label="preview"
-        @click="generate"
+        @click="preview"
       />
       <ButtonComponent
+        :disable="!lastGeneratedUrl"
         label="copy url"
         @click="copyUrl"
       />
@@ -126,13 +87,16 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { useQuasar } from 'quasar'
+import { ref, watch } from 'vue'
 import ColorPicker from './components/ColorPicker.vue'
 import CheckBox from './components/Checkbox.vue'
 import TextInput from './components/TextInput.vue'
 import SelectLanguage from './components/SelectLanguage.vue'
 import ModeToggle from './components/ModeToggle.vue'
 import ButtonComponent from './components/ButtonComponent.vue'
+
+const $q = useQuasar()
 
 const titleColor = ref('')
 const iconColor = ref('')
@@ -145,25 +109,42 @@ const username = ref('')
 const repository = ref('')
 const selectLanguageValue = ref('')
 const modeToggleValue = ref(false)
-const previewDialog = ref(false)
-const copyDialog = ref(false)
 const lastGeneratedUrl = ref('')
+const repositoryDisabled = ref(true)
+const transparentBg = ref(false)
+
+watch(modeToggleValue, (newValue) => {
+  repositoryDisabled.value = !newValue
+})
+
+watch(hideBackground, (newValue) => {
+  transparentBg.value = newValue
+})
 
 function validateFields() {
   const isRepoMode = modeToggleValue.value
-  const requiredFields = [selectLanguageValue, titleColor, iconColor, textColor, backgroundColor, username]
+  const isBgHidden = hideBackground.value
+  const requiredFields = [selectLanguageValue, titleColor, iconColor, textColor, username]
+
   if (isRepoMode) requiredFields.push(repository)
+
+  if (!isBgHidden) requiredFields.push(backgroundColor)
 
   return requiredFields.every(field => field.value)
 }
 
-function generate() {
+function preview() {
   if (!validateFields()) {
-    console.error('Please fill all the fields.')
-    previewDialog.value = true
+    $q.notify({
+      message: 'fill all required fields!',
+      color: 'negative',
+      position: 'center',
+      timeout: 8000,
+    })
     return
   }
 
+  const isRepoMode = modeToggleValue.value
   const data = {
     title_color: titleColor.value,
     icon_color: iconColor.value,
@@ -176,8 +157,6 @@ function generate() {
     locale: selectLanguageValue.value.value || 'en',
   }
 
-  const isRepoMode = modeToggleValue.value
-
   lastGeneratedUrl.value = buildURL(data, isRepoMode)
 }
 
@@ -188,18 +167,18 @@ function buildURL(data, isRepoMode) {
   return `${baseUrl}${path}?${queryParams}`
 }
 
-async function copyUrl() {
+function copyUrl() {
   if (lastGeneratedUrl.value) {
-    try {
-      await navigator.clipboard.writeText(lastGeneratedUrl.value)
-      copyDialog.value = true
-    } catch (err) {
-      console.error('Failed to copy URL:', err)
-    }
-  } else {
-    console.log('No URL generated to copy.')
+    navigator.clipboard.writeText(lastGeneratedUrl.value)
+    $q.notify({
+      message: 'copied!',
+      color: 'positive',
+      position: 'center',
+      timeout: 500,
+    })
   }
 }
+
 </script>
 
 <style scoped>
@@ -228,6 +207,7 @@ body {
 
 .inputs-wrapper {
   max-width: 480px;
+  width: 500px;
 }
 
 .wrapper {
